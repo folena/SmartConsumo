@@ -1,0 +1,49 @@
+<h3>Gráfico de aparelhos</h3>
+<h3>Digite seu aparelho</h3>
+
+<div class="container">
+    <nav class="navbar">
+        <li class="nav-link">
+            <a class="nav-link" routerLink="/telaInicio" routerLinkActive="active">Voltar</a>
+        </li>
+    </nav>
+</div>
+
+<div class="container mb-3">
+    <div class="row">
+        <div class="col form-group">
+            <label for="name" class="form-label">Nome</label>
+            <input class="form-control" type="text" id="name" [(ngModel)]="model.name" required>
+        </div>
+
+        <div class="col form-group">
+            <label for="time" class="form-label">Tempo de consumo</label>
+            <input class="form-control" type="number" id="time" [(ngModel)]="model.time" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col form-group">
+            <label for="energy" class="form-label">Quantidade de energia que o aparelho consome</label>
+            <input class="form-control" type="number" id="energy" [(ngModel)]="model.energy" required>
+        </div>
+    </div>
+</div>
+
+<button class="btn btn-primary me-3" (click)="addAparelho()">Cadastrar</button>
+
+<table *ngIf="aparelho.length > 0" class="table">
+    <thead>
+        <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Tempo</th>
+            <th scope="col">Energia</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let aparelho of aparelho">
+            <th scope="row">{{aparelho.name}}</th>
+            <td>{{aparelho.time}}</td>
+            <td>{{aparelho.energy}}</td>
+        </tr>
+    </tbody>
+</table>

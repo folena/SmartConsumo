@@ -1,0 +1,17 @@
+<h1 class="display-2">Login</h1>
+<h3 class="display"> Para poder utilizar o sistema Smart Consumo, você precisa estar logado!</h3>
+
+<form (ngSubmit)="validarLogin()">
+    <div>
+        <label for="usuario">Usuário</label>
+        <input type="text" id="usuario" name="usuario" [(ngModel)]="usuario" required>
+    </div>
+    <div>
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" [(ngModel)]="senha" required>
+    </div>
+    <div *ngIf="mensagemErro">
+        <span>{{mensagemErro}}</span>
+    </div>
+    <button class="btn btn-primary me-3" type="submit">Entrar</button>
+</form>

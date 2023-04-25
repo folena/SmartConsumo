@@ -1,0 +1,17 @@
+<div class="container">
+    <nav class="navbar">
+        <li class="nav-link">
+            <a class="nav-link" routerLink="/telaInicio" routerLinkActive="active">Voltar</a>
+        </li>
+    </nav>
+</div>
+<h1>a</h1>
+<h2>Lista de aparelhos</h2>
+
+<ul>
+    <li *ngFor="let aparelho of aparelhos">
+        <strong>Nome: </strong> {{aparelho.name}}
+        <strong>Tempo Gasto: </strong> {{aparelho.time}}
+        <strong>Energia Consumida: </strong>{{aparelho.energy}}
+    </li>
+</ul>
