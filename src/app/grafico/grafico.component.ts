@@ -22,15 +22,23 @@ class Aparelho
 export class GraficoComponent {
 aparelho: Aparelho[] = [];
 model = new Aparelho("", 0, 0, 0, 0, 0);
+private chartInstance: Chart | undefined;
 
   addAparelho(){
     this.aparelho.push(this.model);
     this.resetModel();
+    this.updateChart();
   }
 
   calculateEnergyConsumption(): number {
-    const totalEnergy = this.model.time * this.model.energy;
+    const totalEnergy = (this.model.time * this.model.energy)/1000;
     return Number(totalEnergy.toFixed(2));
+  }
+
+  calculatePrice(): number {
+    const energyConsumption = this.calculateEnergyConsumption();
+    const price = energyConsumption * 0.65313;
+    return Number(price.toFixed(2));
   }
   
   resetModel(){
@@ -40,6 +48,10 @@ model = new Aparelho("", 0, 0, 0, 0, 0);
   @ViewChild('chartCanvas') chartCanvas!: ElementRef;
 
   ngAfterViewInit() {
+    this.updateChart();
+  }
+  
+  updateChart() {
     const chartCanvas = this.chartCanvas.nativeElement.getContext('2d');
   
     const data = {
@@ -61,20 +73,25 @@ model = new Aparelho("", 0, 0, 0, 0, 0);
         }
       ]
     };
-  
-    new Chart(chartCanvas, {
-      type: 'bar',
-      data: data,
-      options: {
-        responsive: true,
-        scales: {
-          y: {
-            beginAtZero: true
+    if (this.chartInstance) {
+      // Se o gráfico já foi criado, atualize os dados
+      this.chartInstance.data = data;
+      this.chartInstance.update();
+    } else {
+      // Se o gráfico ainda não foi criado, crie-o
+      this.chartInstance = new Chart(chartCanvas, {
+        type: 'bar',
+        data: data,
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
           }
         }
-      }
-    });
+      });
+    }
   }
-  
-
 }
+  
