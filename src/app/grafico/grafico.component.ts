@@ -28,6 +28,7 @@ private chartInstance: Chart | undefined;
     this.aparelho.push(this.model);
     this.resetModel();
     this.updateChart();
+    console.log(this.aparelho);
   }
 
   calculateEnergyConsumption(): number {
