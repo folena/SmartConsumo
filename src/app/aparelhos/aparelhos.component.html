@@ -14,3 +14,10 @@
         <strong>Energia Consumida: </strong>{{aparelho.energy}}
     </li>
 </ul>
+
+<div>
+    <canvas #chartCanvas></canvas>
+</div>
+
+<p>O aparelho que mais consome energia é: <strong>{{ getAparelhoMaisEnergetico() }}</strong></p>
+
