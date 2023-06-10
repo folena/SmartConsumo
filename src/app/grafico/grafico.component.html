@@ -1,38 +1,49 @@
-
 <div class="container">
     <nav class="navbar">
         <li class="nav-link">
-            <a class="nav-link" routerLink="/telaInicio" routerLinkActive="active">Voltar</a>
+            <button class="btn btn-success mt-3" routerLink="/telaInicio" routerLinkActive="active">Voltar</button>
         </li>
     </nav>
-</div>
 <h3>Gráfico de aparelhos</h3>
 <h3>Digite seu aparelho</h3>
 
-<div class="container mb-3">
-    <div class="row">
-        <div class="col form-group">
-            <label for="name" class="form-label">Nome</label>
-            <input class="form-control" type="text" id="name" [(ngModel)]="model.name" required>
-        </div>
+    <div class="col form-group">
+        <label for="name" class="form-label">Aparelho</label>
+        <select class="form-control" id="name" [(ngModel)]="model.name" (change)="onNomeSelecionado(model.name)">
+            <option value="" disabled selected>Selecione um aparelho</option>
+            <option *ngFor="let nome of getAparelhoOpcoesKeys()" [value]="nome">{{ nome }}</option>
+          </select>          
+    </div>
 
         <div class="col form-group">
             <label for="time" class="form-label">Tempo de consumo (Em minutos)</label>
             <input class="form-control" type="number" id="time" [(ngModel)]="model.time" required>
         </div>
-    </div>
     <div class="row">
         <div class="col form-group">
-            <label for="energy" class="form-label">Quantidade de energia consumida (Em KwH)</label>
-            <input class="form-control" type="number" id="energy" [(ngModel)]="model.energy" required>
+            <label for="energia" class="form-label">Energia consumida (em mA)</label>
+            <input class="form-control" type="number" id="energia" [(ngModel)]="aparelhoOpcoes[model.name] && aparelhoOpcoes[model.name].energia" required [readonly]="true">
         </div>
-
+        
+        <div class="col form-group">
+            <label for="voltage" class="form-label">Tensão do aparelho (Volts)</label>
+            <input class="form-control" type="number" id="voltage" [(ngModel)]="aparelhoOpcoes[model.name] && aparelhoOpcoes[model.name].voltagem" required [readonly]="true">
+        </div>
+        
+        <!--<div class="col form-group">
+            <label for="time" class="form-label">Tempo de consumo (Em minutos)</label>
+            <select class="form-control" id="energy" [(ngModel)]="model.energy" required>
+                <option *ngFor="let energy of energyOpcoes" [value]="energy">{{ energy }}</option>
+            </select>
+        </div>
+        
         <div class="col form-group">
             <label for="voltage" class="form-label">Voltagem do aparelho</label>
-            <input class="form-control" type="number" id="voltage" [(ngModel)]="model.voltage" required>
+            <select class="form-control" id="voltage" [(ngModel)]="model.voltage" required>
+                <option *ngFor="let voltagem of voltagemOpcoes" [value]="voltagem">{{ voltagem }}</option>
+            </select>
         </div>
-    </div>
-       <div class="row">
+       <div class="row">-->
              <!--<div class="col form-group">
                 <label for="average" class="form-label">Média de consumo</label>
                 <input class="form-control" type="number" id="average" [(ngModel)]="model.average" required>
@@ -40,19 +51,19 @@
         <div class="col form-group">
             <label for="energy-saving" class="form-label">Economia de Energia</label>
             <input class="form-control" type="number" id="energy-saving" [(ngModel)]="model.energySaving" required>
-        </div>-->
-    </div>
+        </div>
+    </div>-->
 </div>
 
 <button class="btn btn-primary me-3" (click)="addAparelho()">Cadastrar</button>
 
 <div *ngIf="aparelho.length > 0" class="mt-3">
     <h3>Informações de Consumo</h3>
-    <p>O aparelho <strong>{{ aparelho[aparelho.length - 1].name }}</strong> gasta aproximadamente <strong>{{ calculateEnergyConsumption() }}</strong> KwH por hora.</p>
-    <p>Você pagará <strong>R$ {{ calculatePrice() }}</strong></p>
+    <p>O aparelho <strong>{{ aparelho[aparelho.length - 1].name }}</strong> gasta aproximadamente <strong>{{ calculateEnergyConsumption(aparelho[aparelho.length - 1]) }}</strong> KwH por hora.</p>
+    <p>Você pagará <strong>R$ {{ calculatePrice(aparelho[aparelho.length - 1]) }} Em um dia</strong></p>
 </div>
 
-<canvas #chartCanvas></canvas>
+<!--<canvas #chartCanvas></canvas>-->
 
 <table *ngIf="aparelho.length > 0" class="table">
     <thead>
@@ -61,17 +72,14 @@
             <th scope="col">Tempo</th>
             <th scope="col">Energia</th>
             <th scope="col">Voltagem</th>
-            <th scope="col">Média de Consumo</th>
-            <th scope="col">Economia de energia</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let aparelho of aparelho">
             <th scope="row">{{aparelho.name}}</th>
-            <td>{{aparelho.time}}</td>
-            <td>{{aparelho.energy}}</td>
-            <td>{{aparelho.voltage}}</td>
-            <td>{{aparelho.average}}</td>
+            <td>{{aparelho.time}} Minutos</td>
+            <td>{{aparelho.energy}} MiliAmperes</td>
+            <td>{{aparelho.voltage}} Volts</td>
         </tr>
     </tbody>
 </table>

@@ -1,0 +1,21 @@
+<div class="container">
+        <nav class="navbar">
+            <li class="nav-link">
+                <button class="btn btn-success mt-3" routerLink="/aparelhos" routerLinkActive="active">Voltar</button>
+            </li>
+        </nav>
+    <h2>{{ aparelho.name }}</h2>
+
+    <p>Caracteristicas do aparelho:</p>
+    <p>Tensão: {{aparelho.voltagem}} Volts || Corrente: {{aparelho.corrente}}A || Potência: {{aparelho.potencia}} Watts</p>
+
+  <hr>
+    <p><strong>Tempo Gasto/dia: </strong>{{ aparelho.time }}</p>
+    <p><strong>Energia Consumida/dia: </strong>{{ aparelho.energy }}</p>
+<br>
+    <p> Este aparelho {{aparelho.name}} consome {{aparelho.energy}} custando R$ {{aparelho.valor}} por dia</p>    
+    <p> Em uma semana, ele vai estar consumindo R$ {{aparelho.semana}}</p>
+    <p> Em um mês, ele vai estar consumindo R$ {{aparelho.mes}}</p>
+  
+    <canvas #chartCanvas></canvas>
+  </div>  

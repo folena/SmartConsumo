@@ -1,20 +1,21 @@
 <div class="container">
     <nav class="navbar">
         <li class="nav-link">
-            <a class="nav-link" routerLink="/telaInicio" routerLinkActive="active">Voltar</a>
+            <button class="btn btn-success mt-3" routerLink="/telaInicio" routerLinkActive="active">Voltar</button>
         </li>
     </nav>
 </div>
 <h2>Lista de aparelhos</h2>
-
+<h5>Clique em um aparelho para ter mais detalhes!</h5>
+<br>
+<div>
 <ul>
-    <li *ngFor="let aparelho of aparelhos">
-        <strong>Nome: </strong> {{aparelho.name}}
-        <strong>Tempo Gasto: </strong> {{aparelho.time}}
-        <strong>Energia Consumida: </strong>{{aparelho.energy}}
+    <li *ngFor="let aparelho of aparelhos" (click)="redirectToAparelhoDetail(aparelho)">
+     {{aparelho.name}}
+      <hr>
     </li>
-</ul>
-
+  </ul>
+</div>
 <div>
     <canvas #chartCanvas></canvas>
 </div>

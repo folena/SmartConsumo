@@ -9,6 +9,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './login/login.component';
 import { TelaInicioComponent } from './tela-inicio/tela-inicio.component';
 import { AparelhosComponent } from './aparelhos/aparelhos.component';
+import { AddAparelhoComponent } from './add-aparelho/add-aparelho.component';
+import { AparelhoDetalheComponent } from './aparelho-detalhe/aparelho-detalhe.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { AparelhosComponent } from './aparelhos/aparelhos.component';
     GraficoComponent,
     LoginComponent,
     TelaInicioComponent,
-    AparelhosComponent
+    AparelhosComponent,
+    AddAparelhoComponent,
+    AparelhoDetalheComponent
   ],
   imports: [
     BrowserModule,

@@ -14,6 +14,7 @@ class Aparelho
   }
 }
 
+
 @Component({
   selector: 'app-grafico',
   templateUrl: './grafico.component.html',
@@ -23,21 +24,42 @@ export class GraficoComponent {
 aparelho: Aparelho[] = [];
 model = new Aparelho("", 0, 0, 0, 0, 0);
 private chartInstance: Chart | undefined;
+aparelhoOpcoes: { [key: string]: { energia: number, voltagem: number } } = {
+  'Aparelho de Blue-Ray': { energia: 800, voltagem: 120 },
+  'Computador': { energia: 1300, voltagem: 120 },
+  'Aparelho de Som': { energia: 1420, voltagem: 120 },
+  'a': { energia: 1408, voltagem: 220 },
+  'Aarelho de Som': { energia: 1420, voltagem: 120 },
+  'parelho de Som': { energia: 1420, voltagem: 120 },
+  'arelho de Som': { energia: 1420, voltagem: 120 },
+  'Som': { energia: 1420, voltagem: 120 }
+};
 
-  addAparelho(){
-    this.aparelho.push(this.model);
-    this.resetModel();
-    this.updateChart();
-    console.log(this.aparelho);
+addAparelho() {
+  this.aparelho.push(this.model);
+  this.model = this.aparelho[this.aparelho.length - 1]; // Atualiza o objeto `model` com o último aparelho cadastrado
+  this.updateChart();
+  console.log(this.aparelho);
+}
+
+  onNomeSelecionado(nome: string) {
+    const aparelhoOpcoesSelecionado = this.aparelhoOpcoes[nome];
+    this.model.name = nome;
+    this.model.energy = aparelhoOpcoesSelecionado.energia;
+    this.model.voltage = aparelhoOpcoesSelecionado.voltagem;
   }
-
-  calculateEnergyConsumption(): number {
-    const totalEnergy = (this.model.time * this.model.energy)/1000;
+  
+  getAparelhoOpcoesKeys(): string[] {
+    return Object.keys(this.aparelhoOpcoes);
+  }
+  
+  calculateEnergyConsumption(aparelho: Aparelho): number {
+    const totalEnergy = (((aparelho.time / 60) * (aparelho.voltage * (aparelho.energy / 1000))) / 1000)
     return Number(totalEnergy.toFixed(2));
   }
 
-  calculatePrice(): number {
-    const energyConsumption = this.calculateEnergyConsumption();
+  calculatePrice(aparelho: Aparelho): number {
+    const energyConsumption = this.calculateEnergyConsumption(aparelho);
     const price = energyConsumption * 0.65313;
     return Number(price.toFixed(2));
   }
